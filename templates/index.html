@@ -3,278 +3,433 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🧠💀 PREDIKSI STUNTING BRAINROT EDITION 💀🧠</title>
+    <title>Buku Catatan Sehat & Karakter Si Kecil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Coiny&family=Space+Mono&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="img/ascii-art-text (2).png">
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Creepster&family=Nosifer&display=swap');
-        
-        * {
+        :root {
+            --retro-paper: #fdf6e3; /* Warna kertas lama */
+            --retro-red: #ef476f;
+            --retro-blue: #118ab2;
+            --retro-yellow: #ffd166;
+            --retro-green: #06d6a0;
+            --retro-dark: #073b4c;
+        }
+
+        body {
+            background-color: #eee3cb; /* Latar belakang meja kayu/hangat */
+            background-image: radial-gradient(#d3c5a3 1px, transparent 1px);
+            background-size: 20px 20px;
+            font-family: 'Quicksand', sans-serif;
+            color: var(--retro-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             margin: 0;
-            padding: 0;
+            padding: 20px;
+        }
+
+        .notebook {
+            background: var(--retro-paper);
+            width: 100%;
+            /* Diperlebar dari 440px ke 700px agar muat layout menyamping */
+            max-width: 700px; 
+            padding: 40px 30px;
+            border-radius: 2px;
+            position: relative;
+            box-shadow: 
+                /* Efek tumpukan kertas */
+                5px 5px 0px #d3c5a3,
+                10px 10px 0px var(--retro-dark);
+            border: 3px solid var(--retro-dark);
             box-sizing: border-box;
         }
-        
-        body {
-            background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff0000, #0000ff);
-            background-size: 400% 400%;
-            animation: brainrotGlitch 3s ease infinite;
-            font-family: 'Comic Neue', cursive;
-            color: #fff;
-            overflow-x: hidden;
-            min-height: 100vh;
+
+        /* Garis buku tulis */
+        .notebook::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 40px;
+            width: 2px; height: 100%;
+            background: rgba(239, 71, 111, 0.3);
+            z-index: 1;
+        }
+
+        header, .tabs, .form-container, .result-area, footer {
             position: relative;
+            z-index: 2; /* Supaya input dan teks berada di atas garis buku tulis */
         }
-        
-        @keyframes brainrotGlitch {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        
-        body::before {
-            content: "💀STUNTING DETECTOR 9000💀";
-            position: fixed;
-            top: -50px;
-            left: -50px;
-            font-size: 4rem;
-            font-family: 'Nosifer', cursive;
-            color: #ff00ff;
-            animation: floatSkull 6s ease-in-out infinite;
-            z-index: 10;
-            text-shadow: 0 0 20px #00ffff;
-            pointer-events: none;
-        }
-        
-        @keyframes floatSkull {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(50px, 20px) rotate(180deg); }
-            50% { transform: translate(100px, -30px) rotate(360deg); }
-            75% { transform: translate(-20px, 50px) rotate(540deg); }
-        }
-        
-        h2 {
-            font-family: 'Creepster', cursive;
-            font-size: 3.5rem;
+
+        header {
             text-align: center;
-            margin: 20px 0;
-            background: linear-gradient(45deg, #ff00ff, #00ff00, #ffff00, #ff0000);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: rainbowText 2s linear infinite;
-            text-shadow: 3px 3px 0 #000, 0 0 20px #fff;
-            filter: drop-shadow(0 0 10px #ff00ff);
+            margin-bottom: 25px;
+            border-bottom: 4px dashed var(--retro-dark);
+            padding-bottom: 20px;
         }
-        
-        @keyframes rainbowText {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
+
+        header h1 {
+            font-family: 'Coiny', cursive;
+            font-size: 32px;
+            color: var(--retro-red);
+            margin: 0;
+            text-shadow: 2px 2px 0px var(--retro-yellow);
+            -webkit-text-stroke: 1px var(--retro-dark);
         }
-        
-        form {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 40px;
-            background: rgba(0,0,0,0.8);
-            border: 5px solid;
-            border-image: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00) 1;
-            border-radius: 25px;
-            box-shadow: 
-                0 0 50px #ff00ff,
-                inset 0 0 50px rgba(0,255,255,0.3),
-                0 0 100px #00ff00;
-            animation: formShake 0.5s infinite alternate;
-            position: relative;
-            overflow: hidden;
+
+        .label-retro {
+            display: inline-block;
+            background: var(--retro-blue);
+            color: white;
+            padding: 5px 15px;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            transform: rotate(-2deg);
+            margin-bottom: 10px;
         }
-        
-        @keyframes formShake {
-            0% { transform: translateX(0) rotate(1deg); }
-            100% { transform: translateX(5px) rotate(-1deg); }
+
+        /* TAB NAVIGATION SYSTEM */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
         }
-        
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            font-weight: bold;
+            background: #e5dbbe;
+            border: 2px solid var(--retro-dark);
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 2px 2px 0px var(--retro-dark);
+        }
+
+        .tab-btn.active {
+            background: var(--retro-yellow);
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .form-content {
+            display: none;
+        }
+
+        .form-content.active {
+            display: block;
+        }
+
+        /* LAYOUT GRID MENYAMPING */
+        .grid-form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Membagi form jadi 2 kolom menyamping */
+            gap: 20px;
+        }
+
+        .field {
+            margin-bottom: 10px;
+        }
+
+        /* Jika item ingin dibuat penuh 1 baris (seperti tombol submit) */
+        .full-width {
+            grid-column: span 2;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
         input, select {
             width: 100%;
-            padding: 20px;
-            margin: 15px 0;
-            font-size: 1.5rem;
-            font-family: 'Comic Neue', cursive;
-            background: linear-gradient(45deg, #ff1493, #00bfff);
-            border: 3px solid #fff;
-            border-radius: 15px;
-            color: #000;
-            font-weight: bold;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        
-        input:focus, select:focus {
+            box-sizing: border-box;
+            padding: 12px;
+            border: 3px solid var(--retro-dark);
+            background: white;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            border-radius: 8px;
+            box-shadow: 4px 4px 0px var(--retro-dark);
             outline: none;
-            transform: scale(1.05);
-            box-shadow: 
-                0 0 30px #ff00ff,
-                0 5px 20px rgba(0,0,0,0.7);
-            animation: inputPulse 0.5s ease;
         }
-        
-        @keyframes inputPulse {
-            0% { box-shadow: 0 0 30px #ff00ff; }
-            50% { box-shadow: 0 0 50px #00ffff, 0 0 30px #ff00ff; }
-            100% { box-shadow: 0 0 30px #ff00ff; }
+
+        input:focus {
+            background: var(--retro-yellow);
         }
-        
-        button {
+
+        button.btn-submit {
             width: 100%;
-            padding: 25px;
-            font-size: 2rem;
-            font-family: 'Creepster', cursive;
-            background: linear-gradient(45deg, #ff0000, #ff00ff, #ffff00, #00ff00);
-            background-size: 300% 300%;
-            border: none;
-            border-radius: 20px;
-            color: #000;
-            font-weight: bold;
+            padding: 15px;
+            background: var(--retro-green);
+            color: var(--retro-dark);
+            border: 3px solid var(--retro-dark);
+            border-radius: 8px;
+            font-family: 'Coiny', cursive;
+            font-size: 20px;
             cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            animation: buttonGlitch 1s ease infinite;
-            box-shadow: 
-                0 10px 30px rgba(255,0,0,0.7),
-                inset 0 0 20px rgba(255,255,255,0.3);
+            box-shadow: 4px 4px 0px var(--retro-dark);
+            transition: all 0.1s;
+            margin-top: 15px;
+        }
+
+        button.btn-submit:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px var(--retro-dark);
+        }
+
+        /* HASIL SCAN */
+        .result-area {
+            margin-top: 30px;
+            padding: 20px;
+            border: 3px solid var(--retro-dark);
+            background: white;
             position: relative;
-            overflow: hidden;
-            text-shadow: 2px 2px 4px #fff;
+            box-shadow: 4px 4px 0px var(--retro-dark);
         }
-        
-        @keyframes buttonGlitch {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            25% { transform: scale(1.02); }
-            75% { transform: scale(0.98); }
+
+        .result-area::after {
+            content: "✓ TERVERIFIKASI";
+            position: absolute;
+            top: -15px; right: -10px;
+            background: var(--retro-red);
+            color: white;
+            font-size: 10px;
+            padding: 4px 8px;
+            transform: rotate(15deg);
+            font-weight: bold;
         }
-        
-        button:hover {
-            transform: scale(1.1);
-            box-shadow: 
-                0 15px 40px rgba(255,0,255,1),
-                inset 0 0 30px rgba(255,255,255,0.5);
-            animation: none;
+
+        .status-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: bold;
         }
-        
-        button:active {
-            transform: scale(0.95);
-            animation: explode 0.1s ease;
+
+        .prediction {
+            font-size: 26px;
+            font-family: 'Coiny', cursive;
+            margin: 5px 0;
         }
-        
-        @keyframes explode {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-            100% { transform: scale(0.95); }
+
+        .tips {
+            font-size: 14px;
+            border-top: 2px dashed #eee;
+            margin-top: 10px;
+            padding-top: 10px;
         }
-        
-        h3 {
-            font-family: 'Nosifer', cursive;
-            font-size: 3rem;
+
+        footer {
             text-align: center;
             margin-top: 40px;
-            color: #ff00ff;
-            text-shadow: 
-                0 0 20px #00ffff,
-                3px 3px 0 #000;
-            animation: predictionFlicker 0.3s infinite alternate;
-            filter: drop-shadow(0 0 15px #ffff00);
+            font-size: 11px;
+            font-family: 'Space Mono', monospace;
+            color: var(--retro-dark);
+            opacity: 0.85;
+            /* Membuat garis pembatas putus-putus seperti potongan karcis retro */
+            border-top: 3px dashed rgba(7, 59, 76, 0.2);
+            padding-top: 20px;
         }
-        
-        @keyframes predictionFlicker {
-            0% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0.8; transform: scale(1.05); }
+
+        .footer-badge {
+            display: inline-block;
+            background: var(--retro-dark);
+            color: var(--retro-paper);
+            padding: 3px 8px;
+            font-size: 10px;
+            font-weight: bold;
+            border-radius: 3px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        
-        /* PARTICLE EFFECTS */
-        .particle {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: #ffff00;
-            border-radius: 50%;
-            pointer-events: none;
-            animation: particleFloat 4s linear infinite;
+
+        .footer-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            font-size: 10px;
+            color: rgba(7, 59, 76, 0.6);
         }
-        
-        @keyframes particleFloat {
-            0% {
-                transform: translateY(100vh) scale(0);
-                opacity: 1;
+
+        /* Responsive footer untuk HP */
+        @media (max-width: 600px) {
+            .footer-details {
+                flex-direction: column;
+                gap: 5px;
             }
-            100% {
-                transform: translateY(-100px) scale(1);
-                opacity: 0;
+        }
+
+        /* RESPONSIVE LAYOUT (Untuk Layar HP) */
+        @media (max-width: 600px) {
+            .grid-form {
+                grid-template-columns: 1fr; /* Kembali jadi 1 kolom ke bawah jika layar kekecilan */
             }
-        }
-        
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            h2 { font-size: 2.5rem; }
-            form { margin: 20px; padding: 30px 20px; }
-            input, select, button { font-size: 1.2rem; padding: 15px; }
-        }
-        
-        /* EXTRA BRAINROT */
-        .glitch::after {
-            content: 'ERROR 404 NUTRITION NOT FOUND';
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 0.8rem;
-            color: #ff0000;
-            animation: glitchText 2s linear infinite;
-        }
-        
-        @keyframes glitchText {
-            0%, 100% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); color: #00ffff; }
-            40% { transform: translate(-2px, -2px); color: #ffff00; }
-            60% { transform: translate(2px, 2px); color: #ff00ff; }
-            80% { transform: translate(2px, -2px); color: #00ff00; }
+            .full-width {
+                grid-column: span 1;
+            }
+            .notebook {
+                padding: 30px 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="glitch"></div>
-    
-    <!-- PARTICLE SYSTEM -->
-    <script>
-        function createParticle() {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + 'vw';
-            particle.style.animationDelay = Math.random() * 2 + 's';
-            particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            document.body.appendChild(particle);
-            
-            setTimeout(() => {
-                particle.remove();
-            }, 5000);
-        }
-        
-        setInterval(createParticle, 300);
-    </script>
-    
-    <h2>🧠💀 CEK STATUS GIZI BALITA BRAINROT 💀🧠</h2>
-    <form action="/predict" method="post">
-        <input type="number" name="umur" placeholder="UMUR (BULAN) 💀" required><br>
-        
-        <select name="jenis_kelamin">
-            <option value="laki-laki">👦 LAKI-LAKI ALPHA</option>
-            <option value="perempuan">👧 PEREMPUAN GAMER</option>
-        </select><br>
-        
-        <input type="number" name="tinggi" placeholder="TINGGI BADAN (CM) 📏" step="0.1" required><br>
-        
-        <button type="submit">🚀 PREDIKSI STUNTING ULTRA 💥</button>
-    </form>
 
-    <h3>{{ prediction_text }}</h3>
+<div class="notebook">
+    <header>
+        <div class="label-retro">EDISI GOKIL ANTI JEBOL 2026</div>
+        <h1>Catatan Bunda</h1>
+        <p style="margin-top: 5px; font-size: 14px;">Pantau kesehatan fisik dan karakter psikologi si kecil.</p>
+    </header>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('stunting')">📊 Cek Stunting</button>
+        <button class="tab-btn" onclick="switchTab('personality')">🧠 Tes Karakter</button>
+    </div>
+
+    <div class="form-container">
+        <div id="form-stunting" class="form-content active">
+            <form action="/predict" method="post" class="grid-form">
+                <div class="field">
+                    <label>Usia si Kecil (Bulan)</label>
+                    <input type="number" name="umur" placeholder="Maks 36 Bulan" required>
+                </div>
+
+                <div class="field">
+                    <label>Jenis Kelamin</label>
+                    <select name="jenis_kelamin">
+                        <option value="laki-laki">Laki-laki</option>
+                        <option value="perempuan">Perempuan</option>
+                    </select>
+                </div>
+
+                <div class="field full-width">
+                    <label>Tinggi Badan (cm)</label>
+                    <input type="number" step="0.1" name="tinggi" placeholder="45-110" required>
+                </div>
+
+                <div class="full-width">
+                    <button type="submit" class="btn-submit">Cek Stunting!</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="form-personality" class="form-content">
+            <form action="/predict-personality" method="post" class="grid-form">
+                
+                <div class="field">
+                    <label>Berapa jam si kecil betah main sendiri dalam sehari?</label>
+                    <input type="number" name="time_alone" placeholder="Skala jam, contoh: 4" required>
+                </div>
+
+                <div class="field">
+                    <label>Jumlah event/acara sosial yang diikuti bulan ini:</label>
+                    <input type="number" name="social_events" placeholder="Contoh: 3" required>
+                </div>
+
+                <div class="field">
+                    <label>Kira-kira berapa jumlah teman bermain si kecil:</label>
+                    <input type="number" name="friends" placeholder="Contoh: 5" required>
+                </div>
+
+                <div class="field">
+                    <label>Berapa kali si kecil ngajak  keluar rumah dalam seminggu?</label>
+                    <input type="number" name="going_out" placeholder="Contoh: 7" required>
+                </div>
+
+                <div class="field full-width">
+                    <label>Frekuensi memposting/bercerita ke orang lain dalam seminggu:</label>
+                    <input type="number" name="post_freq" placeholder="Contoh: 2" required>
+                </div>
+
+                <div class="field">
+                    <label>Apakah energinya langsung terkuras habis setelah main ramai-ramai?</label>
+                    <select name="drained">
+                        <option value="Yes">Ya (Mudah Lelah/Butuh Me-time)</option>
+                        <option value="No">Tidak (Malah Makin Ceria & Aktif)</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Apakah si kecil takut saat tampil di depan umum?</label>
+                    <select name="stage_fear">
+                        <option value="Yes">Ya (Sangat Pemalu / Takut)</option>
+                        <option value="No">Tidak (Pemberani / Percaya Diri)</option>
+                    </select>
+                </div>
+
+                <div class="full-width">
+                    <button type="submit" class="btn-submit" style="background: var(--retro-blue); color: white;">Cek Kepribadian!</button>
+                </div>
+            </form> 
+        </div>
+    </div>
+
+    {% if prediction_text %}
+    <div class="result-area" style="border-color: {{ res_color }}">
+        <div class="status-label" style="color: {{ res_color }}">Status Fisik:</div>
+        <div class="prediction" style="color: {{ res_color }}">{{ prediction_text }}</div>
+        
+        <div class="tips">
+            <p><strong>Keterangan:</strong> {{ res_keterangan }}</p>
+            <p><strong>Saran:</strong> {{ res_saran }}</p>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if pers_text %}
+    <div class="result-area" style="border-color: {{ pers_color }}">
+        <div class="status-label" style="color: {{ pers_color }}">Tipe Karakter:</div>
+        <div class="prediction" style="color: {{ pers_color }}">{{ pers_text }}</div>
+        
+        <div class="tips">
+            <p><strong>Analisis:</strong> {{ pers_keterangan }}</p>
+        </div>
+    </div>
+    {% endif %}
+
+   <footer>
+        <div class="footer-badge">Sistem Sarjana Psikologi UI v2.0</div>
+        <div>Dikembangkan untuk Pemantauan Tumbuh Kembang & Psikologi Anak</div>
+        
+        <div class="footer-details">
+            <span>📍 Wilayah Kerja: Banyumas Sehat</span>
+            <span>⚡ Powered by KNN & Naive Bayes</span>
+            <span>📅 Edisi: 2026</span>
+        </div>
+    </footer>
+</div>
+
+<script>
+    function switchTab(tabName) {
+        // Hilangkan kelas aktif dari semua tab button dan form content
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.form-content').forEach(form => form.classList.remove('active'));
+
+        // Aktifkan tab dan form yang diklik
+        if(tabName === 'stunting') {
+            document.querySelector('button[onclick="switchTab(\'stunting\')"]').classList.add('active');
+            document.getElementById('form-stunting').classList.add('active');
+        } else {
+            document.querySelector('button[onclick="switchTab(\'personality\')"]').classList.add('active');
+            document.getElementById('form-personality').classList.add('active');
+        }
+    }
+
+    // Trik Otomatis: Jika website mendeteksi hasil personality dikirim balik, buka tab personality secara otomatis
+    {% if pers_text %}
+        switchTab('personality');
+    {% endif %}
+</script>
+
 </body>
 </html>
