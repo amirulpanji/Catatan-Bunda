@@ -852,3 +852,441 @@ Brainrot
     <h3>{{ prediction_text }}</h3>
 </body>
 </html>
+
+Catatan Bunda
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buku Catatan Sehat & Karakter Si Kecil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Coiny&family=Space+Mono&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="img/ascii-art-text (2).png">
+
+    <style>
+        :root {
+            --retro-paper: #fdf6e3; /* Warna kertas lama */
+            --retro-red: #ef476f;
+            --retro-blue: #118ab2;
+            --retro-yellow: #ffd166;
+            --retro-green: #06d6a0;
+            --retro-dark: #073b4c;
+        }
+
+        body {
+            background-color: #eee3cb; /* Latar belakang meja kayu/hangat */
+            background-image: radial-gradient(#d3c5a3 1px, transparent 1px);
+            background-size: 20px 20px;
+            font-family: 'Quicksand', sans-serif;
+            color: var(--retro-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .notebook {
+            background: var(--retro-paper);
+            width: 100%;
+            /* Diperlebar dari 440px ke 700px agar muat layout menyamping */
+            max-width: 700px; 
+            padding: 40px 30px;
+            border-radius: 2px;
+            position: relative;
+            box-shadow: 
+                /* Efek tumpukan kertas */
+                5px 5px 0px #d3c5a3,
+                10px 10px 0px var(--retro-dark);
+            border: 3px solid var(--retro-dark);
+            box-sizing: border-box;
+        }
+
+        /* Garis buku tulis */
+        .notebook::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 40px;
+            width: 2px; height: 100%;
+            background: rgba(239, 71, 111, 0.3);
+            z-index: 1;
+        }
+
+        header, .tabs, .form-container, .result-area, footer {
+            position: relative;
+            z-index: 2; /* Supaya input dan teks berada di atas garis buku tulis */
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 4px dashed var(--retro-dark);
+            padding-bottom: 20px;
+        }
+
+        header h1 {
+            font-family: 'Coiny', cursive;
+            font-size: 32px;
+            color: var(--retro-red);
+            margin: 0;
+            text-shadow: 2px 2px 0px var(--retro-yellow);
+            -webkit-text-stroke: 1px var(--retro-dark);
+        }
+
+        .label-retro {
+            display: inline-block;
+            background: var(--retro-blue);
+            color: white;
+            padding: 5px 15px;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            transform: rotate(-2deg);
+            margin-bottom: 10px;
+        }
+
+        /* TAB NAVIGATION SYSTEM */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            font-weight: bold;
+            background: #e5dbbe;
+            border: 2px solid var(--retro-dark);
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 2px 2px 0px var(--retro-dark);
+        }
+
+        .tab-btn.active {
+            background: var(--retro-yellow);
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .form-content {
+            display: none;
+        }
+
+        .form-content.active {
+            display: block;
+        }
+
+        /* LAYOUT GRID MENYAMPING */
+        .grid-form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Membagi form jadi 2 kolom menyamping */
+            gap: 20px;
+        }
+
+        .field {
+            margin-bottom: 10px;
+        }
+
+        /* Jika item ingin dibuat penuh 1 baris (seperti tombol submit) */
+        .full-width {
+            grid-column: span 2;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        input, select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            border: 3px solid var(--retro-dark);
+            background: white;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            border-radius: 8px;
+            box-shadow: 4px 4px 0px var(--retro-dark);
+            outline: none;
+        }
+
+        input:focus {
+            background: var(--retro-yellow);
+        }
+
+        button.btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: var(--retro-green);
+            color: var(--retro-dark);
+            border: 3px solid var(--retro-dark);
+            border-radius: 8px;
+            font-family: 'Coiny', cursive;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px var(--retro-dark);
+            transition: all 0.1s;
+            margin-top: 15px;
+        }
+
+        button.btn-submit:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px var(--retro-dark);
+        }
+
+        /* HASIL SCAN */
+        .result-area {
+            margin-top: 30px;
+            padding: 20px;
+            border: 3px solid var(--retro-dark);
+            background: white;
+            position: relative;
+            box-shadow: 4px 4px 0px var(--retro-dark);
+        }
+
+        .result-area::after {
+            content: "✓ TERVERIFIKASI";
+            position: absolute;
+            top: -15px; right: -10px;
+            background: var(--retro-red);
+            color: white;
+            font-size: 10px;
+            padding: 4px 8px;
+            transform: rotate(15deg);
+            font-weight: bold;
+        }
+
+        .status-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .prediction {
+            font-size: 26px;
+            font-family: 'Coiny', cursive;
+            margin: 5px 0;
+        }
+
+        .tips {
+            font-size: 14px;
+            border-top: 2px dashed #eee;
+            margin-top: 10px;
+            padding-top: 10px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 11px;
+            font-family: 'Space Mono', monospace;
+            color: var(--retro-dark);
+            opacity: 0.85;
+            /* Membuat garis pembatas putus-putus seperti potongan karcis retro */
+            border-top: 3px dashed rgba(7, 59, 76, 0.2);
+            padding-top: 20px;
+        }
+
+        .footer-badge {
+            display: inline-block;
+            background: var(--retro-dark);
+            color: var(--retro-paper);
+            padding: 3px 8px;
+            font-size: 10px;
+            font-weight: bold;
+            border-radius: 3px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            font-size: 10px;
+            color: rgba(7, 59, 76, 0.6);
+        }
+
+        /* Responsive footer untuk HP */
+        @media (max-width: 600px) {
+            .footer-details {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+
+        /* RESPONSIVE LAYOUT (Untuk Layar HP) */
+        @media (max-width: 600px) {
+            .grid-form {
+                grid-template-columns: 1fr; /* Kembali jadi 1 kolom ke bawah jika layar kekecilan */
+            }
+            .full-width {
+                grid-column: span 1;
+            }
+            .notebook {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="notebook">
+    <header>
+        <div class="label-retro">EDISI GOKIL ANTI JEBOL 2026</div>
+        <h1>Catatan Bunda</h1>
+        <p style="margin-top: 5px; font-size: 14px;">Pantau kesehatan fisik dan karakter psikologi si kecil.</p>
+    </header>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('stunting')">📊 Cek Stunting</button>
+        <button class="tab-btn" onclick="switchTab('personality')">🧠 Tes Karakter</button>
+    </div>
+
+    <div class="form-container">
+        <div id="form-stunting" class="form-content active">
+            <form action="/predict" method="post" class="grid-form">
+                <div class="field">
+                    <label>Usia si Kecil (Bulan)</label>
+                    <input type="number" name="umur" placeholder="Maks 36 Bulan" required>
+                </div>
+
+                <div class="field">
+                    <label>Jenis Kelamin</label>
+                    <select name="jenis_kelamin">
+                        <option value="laki-laki">Laki-laki</option>
+                        <option value="perempuan">Perempuan</option>
+                    </select>
+                </div>
+
+                <div class="field full-width">
+                    <label>Tinggi Badan (cm)</label>
+                    <input type="number" step="0.1" name="tinggi" placeholder="45-110" required>
+                </div>
+
+                <div class="full-width">
+                    <button type="submit" class="btn-submit">Cek Stunting!</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="form-personality" class="form-content">
+            <form action="/predict-personality" method="post" class="grid-form">
+                
+                <div class="field">
+                    <label>Berapa jam si kecil betah main sendiri dalam sehari?</label>
+                    <input type="number" name="time_alone" placeholder="Skala jam, contoh: 4" required>
+                </div>
+
+                <div class="field">
+                    <label>Jumlah event/acara sosial yang diikuti bulan ini:</label>
+                    <input type="number" name="social_events" placeholder="Contoh: 3" required>
+                </div>
+
+                <div class="field">
+                    <label>Kira-kira berapa jumlah teman bermain si kecil:</label>
+                    <input type="number" name="friends" placeholder="Contoh: 5" required>
+                </div>
+
+                <div class="field">
+                    <label>Berapa kali si kecil ngajak  keluar rumah dalam seminggu?</label>
+                    <input type="number" name="going_out" placeholder="Contoh: 7" required>
+                </div>
+
+                <div class="field full-width">
+                    <label>Frekuensi memposting/bercerita ke orang lain dalam seminggu:</label>
+                    <input type="number" name="post_freq" placeholder="Contoh: 2" required>
+                </div>
+
+                <div class="field">
+                    <label>Apakah energinya langsung terkuras habis setelah main ramai-ramai?</label>
+                    <select name="drained">
+                        <option value="Yes">Ya (Mudah Lelah/Butuh Me-time)</option>
+                        <option value="No">Tidak (Malah Makin Ceria & Aktif)</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Apakah si kecil takut saat tampil di depan umum?</label>
+                    <select name="stage_fear">
+                        <option value="Yes">Ya (Sangat Pemalu / Takut)</option>
+                        <option value="No">Tidak (Pemberani / Percaya Diri)</option>
+                    </select>
+                </div>
+
+                <div class="full-width">
+                    <button type="submit" class="btn-submit" style="background: var(--retro-blue); color: white;">Cek Kepribadian!</button>
+                </div>
+            </form> 
+        </div>
+    </div>
+
+    {% if prediction_text %}
+    <div class="result-area" style="border-color: {{ res_color }}">
+        <div class="status-label" style="color: {{ res_color }}">Status Fisik:</div>
+        <div class="prediction" style="color: {{ res_color }}">{{ prediction_text }}</div>
+        
+        <div class="tips">
+            <p><strong>Keterangan:</strong> {{ res_keterangan }}</p>
+            <p><strong>Saran:</strong> {{ res_saran }}</p>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if pers_text %}
+    <div class="result-area" style="border-color: {{ pers_color }}">
+        <div class="status-label" style="color: {{ pers_color }}">Tipe Karakter:</div>
+        <div class="prediction" style="color: {{ pers_color }}">{{ pers_text }}</div>
+        
+        <div class="tips">
+            <p><strong>Analisis:</strong> {{ pers_keterangan }}</p>
+        </div>
+    </div>
+    {% endif %}
+
+   <footer>
+        <div class="footer-badge">Sistem Sarjana Psikologi UI v2.0</div>
+        <div>Dikembangkan untuk Pemantauan Tumbuh Kembang & Psikologi Anak</div>
+        
+        <div class="footer-details">
+            <span>📍 Wilayah Kerja: Banyumas Sehat</span>
+            <span>⚡ Powered by KNN & Amirul</span>
+            <span>📅 Edisi: 2026</span>
+        </div>
+    </footer>
+</div>
+
+<script>
+    function switchTab(tabName) {
+        // Hilangkan kelas aktif dari semua tab button dan form content
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.form-content').forEach(form => form.classList.remove('active'));
+
+        // Aktifkan tab dan form yang diklik
+        if(tabName === 'stunting') {
+            document.querySelector('button[onclick="switchTab(\'stunting\')"]').classList.add('active');
+            document.getElementById('form-stunting').classList.add('active');
+        } else {
+            document.querySelector('button[onclick="switchTab(\'personality\')"]').classList.add('active');
+            document.getElementById('form-personality').classList.add('active');
+        }
+    }
+
+    // Trik Otomatis: Jika website mendeteksi hasil personality dikirim balik, buka tab personality secara otomatis
+    {% if pers_text %}
+        switchTab('personality');
+    {% endif %}
+</script>
+
+</body>
+</html>

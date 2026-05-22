@@ -19,7 +19,7 @@ try:
     le_drained = joblib.load(os.path.join(MODEL_DIR, 'le_drained.pkl'))
     le_stage = joblib.load(os.path.join(MODEL_DIR, 'le_stage.pkl'))
     le_personality = joblib.load(os.path.join(MODEL_DIR, 'le_personality.pkl'))
-    
+        
     print("Semua Model, Scaler, dan Encoder BERHASIL dimuat!")
 except Exception as e:
     print(f"EROR KRITIKAL SAAT LOAD MODEL: {e}")
