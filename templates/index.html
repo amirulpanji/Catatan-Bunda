@@ -3,30 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hasyimpredict</title>
-    <!-- Memuat font mesin ketik modern (JetBrains Mono) & klasik (Courier Prime) -->
+    <title>Buku Catatan Sehat & Karakter Si Kecil</title>
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="img/ascii-art-text (2).png">
-
     <style>
         :root {
-            /* Palette Monokrom Baku */
-            --bg-main: #f4f4f5;       /* Abu-abu kertas koran/dokumen lama */
-            --border-color: #d4d4d8;  /* Garis pembatas tipis */
-            --border-focus: #000000;  /* Hitam pekat saat input aktif */
-            --text-main: #18181b;     /* Tinta hitam mesin ketik */
-            --text-muted: #71717a;    /* Tinta agak pudar */
+            --bg-main: #f4f4f5;       
+            --border-color: #d4d4d8;  
+            --border-focus: #000000;  
+            --text-main: #18181b;     
+            --text-muted: #71717a;    
             --card-bg: #ffffff;       
         }
 
-        * {
-            box-sizing: border-box;
-            transition: all 0.15s ease;
-        }
+        * { box-sizing: border-box; transition: all 0.15s ease; }
 
         body {
             background-color: var(--bg-main);
-            /* Font utama disetel ke gaya mesin ketik */
             font-family: 'JetBrains Mono', 'Courier New', monospace;
             color: var(--text-main);
             display: flex;
@@ -37,14 +29,12 @@
             padding: 40px 20px;
         }
 
-        /* Container Dokumen */
         .notebook {
             background: var(--card-bg);
             width: 100%;
             max-width: 680px; 
             padding: 50px 45px;
-            border-radius: 4px; /* Sudut kotak hampir siku rapi */
-            position: relative;
+            border-radius: 4px; 
             border: 1px solid var(--border-color);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
         }
@@ -53,24 +43,17 @@
             text-align: left;
             margin-bottom: 40px;
             padding-bottom: 25px;
-            border-bottom: 1px dashed var(--border-color); /* Garis putus-putus khas dokumen */
+            border-bottom: 1px dashed var(--border-color); 
         }
 
         header h1 {
-            font-family: 'Courier Prime', monospace; /* Lebih berkarakter mesin ketik klasik */
+            font-family: 'Courier Prime', monospace; 
             font-size: 28px;
             font-weight: 700;
-            color: var(--text-main);
             margin: 0 0 8px 0;
-            letter-spacing: -0.03em;
         }
 
-        header p {
-            margin: 0;
-            font-size: 13px;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
+        header p { margin: 0; font-size: 13px; color: var(--text-muted); line-height: 1.5; }
 
         .label-retro {
             display: inline-block;
@@ -84,13 +67,7 @@
             text-transform: uppercase;
         }
 
-        /* TAB NAVIGATION SYSTEM (TYPEWRITER STYLE) */
-        .tabs {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 35px;
-            border-bottom: 1px solid var(--border-color);
-        }
+        .tabs { display: flex; gap: 20px; margin-bottom: 35px; border-bottom: 1px solid var(--border-color); }
 
         .tab-btn {
             padding: 10px 2px;
@@ -101,83 +78,36 @@
             background: transparent;
             border: none;
             cursor: pointer;
-            position: relative;
         }
 
-        .tab-btn:hover {
-            color: var(--text-main);
-        }
+        .tab-btn:hover { color: var(--text-main); }
+        .tab-btn.active { color: var(--text-main); font-weight: 700; }
+        .tab-btn.active::before { content: "[ "; }
+        .tab-btn.active::after { content: " ]"; }
 
-        /* Indikator kurung siku [ ] untuk penanda tab aktif khas interface teks lama */
-        .tab-btn.active {
-            color: var(--text-main);
-            font-weight: 700;
-        }
+        .form-content { display: none; }
+        .form-content.active { display: block; }
 
-        .tab-btn.active::before {
-            content: "[ ";
-        }
-        .tab-btn.active::after {
-            content: " ]";
-        }
+        .grid-form { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+        .field { display: flex; flex-direction: column; gap: 8px; }
+        .full-width { grid-column: span 2; }
 
-        .form-content {
-            display: none;
-        }
+        label { font-weight: 700; font-size: 12px; text-transform: uppercase; }
 
-        .form-content.active {
-            display: block;
-        }
-
-        /* LAYOUT GRID */
-        .grid-form {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-        }
-
-        .field {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .full-width {
-            grid-column: span 2;
-        }
-
-        label {
-            font-weight: 700;
-            font-size: 12px;
-            color: var(--text-main);
-            text-transform: uppercase;
-        }
-
-        /* Input & Select Gaya Mesin Ketik Modis */
         input, select {
             width: 100%;
-            box-sizing: border-box;
             padding: 12px;
             border: 1px solid var(--border-color);
             background: #ffffff;
             font-family: inherit;
-            font-weight: 400;
             font-size: 13.5px;
             color: var(--text-main);
             border-radius: 2px;
             outline: none;
         }
 
-        input:focus, select:focus {
-            border-color: var(--border-focus);
-            background: #fafafa;
-        }
+        input:focus, select:focus { border-color: var(--border-focus); background: #fafafa; }
 
-        input::placeholder {
-            color: #a1a1aa;
-        }
-
-        /* Tombol Kotak Solid Hitam */
         button.btn-submit {
             width: 100%;
             padding: 14px;
@@ -193,18 +123,14 @@
             margin-top: 10px;
         }
 
-        button.btn-submit:hover {
-            background: #ffffff;
-            color: #000000;
-        }
+        button.btn-submit:hover { background: #ffffff; color: #000000; }
 
-        /* AREA HASIL SEPERTI LEMBARAN BARU */
         .result-area {
             margin-top: 40px;
             padding: 24px;
             border-radius: 2px;
             background: #ffffff;
-            border: 1px dashed var(--text-main); /* Garis putuk-putus tebal */
+            border: 1px dashed var(--text-main); 
             position: relative;
         }
 
@@ -217,34 +143,11 @@
             color: var(--text-muted);
         }
 
-        .status-label {
-            font-size: 11px;
-            text-transform: uppercase;
-            font-weight: 700;
-            color: var(--text-muted);
-            margin-bottom: 4px;
-        }
+        .status-label { font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--text-muted); margin-bottom: 4px; }
+        .prediction { font-family: 'Courier Prime', monospace; font-size: 24px; font-weight: 700; margin: 0 0 16px 0; }
+        .tips { font-size: 13px; line-height: 1.6; border-top: 1px dashed var(--border-color); padding-top: 16px; }
+        .tips p { margin: 6px 0; }
 
-        .prediction {
-            font-family: 'Courier Prime', monospace;
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin: 0 0 16px 0;
-        }
-
-        .tips {
-            font-size: 13px;
-            line-height: 1.6;
-            border-top: 1px dashed var(--border-color);
-            padding-top: 16px;
-        }
-
-        .tips p {
-            margin: 6px 0;
-        }
-
-        /* FOOTER MONITORING */
         footer {
             text-align: left;
             margin-top: 50px;
@@ -255,39 +158,14 @@
             line-height: 1.6;
         }
 
-        .footer-badge {
-            color: var(--text-main);
-            font-size: 11px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
+        .footer-badge { color: var(--text-main); font-size: 11px; font-weight: 700; margin-bottom: 4px; }
+        .footer-details { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; font-size: 10.5px; color: #a1a1aa; }
 
-        .footer-details {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 12px;
-            font-size: 10.5px;
-            color: #a1a1aa;
-        }
-
-        /* RESPONSIVE LAYOUT */
         @media (max-width: 640px) {
-            .grid-form {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-            .full-width {
-                grid-column: span 1;
-            }
-            .notebook {
-                padding: 35px 25px;
-            }
-            .footer-details {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 4px;
-            }
+            .grid-form { grid-template-columns: 1fr; gap: 16px; }
+            .full-width { grid-column: span 1; }
+            .notebook { padding: 35px 25px; }
+            .footer-details { flex-direction: column; align-items: flex-start; gap: 4px; }
         }
     </style>
 </head>
@@ -296,8 +174,8 @@
 <div class="notebook">
     <header>
         <div class="label-retro">LOG.NO: 2026-X</div>
-        <h1>HASYIMPREDICT</h1>
-        <p>Instrumen terenkripsi untuk pemantauan tumbuh kembang fisik dan karakteristik psikologi anak.</p>
+        <h1>CATATAN BUNDA</h1>
+        <p>Instrumen digital pemantauan tumbuh kembang fisik dan karakteristik psikologi anak.</p>
     </header>
 
     <div class="tabs">
@@ -306,7 +184,6 @@
     </div>
 
     <div class="form-container">
-        <!-- Form Stunting -->
         <div id="form-stunting" class="form-content active">
             <form action="/predict" method="post" class="grid-form">
                 <div class="field">
@@ -333,7 +210,6 @@
             </form>
         </div>
 
-        <!-- Form Personality -->
         <div id="form-personality" class="form-content">
             <form action="/predict-personality" method="post" class="grid-form">
                 <div class="field">
@@ -364,16 +240,16 @@
                 <div class="field">
                     <label>Retensi Energi Pasca-Sosialisasi</label>
                     <select name="drained">
-                        <option value="Yes">Mudah lelah</option>
-                        <option value="No">Tetap aktif</option>
+                        <option value="Yes">Mudah lelah (Butuh ruang mandiri)</option>
+                        <option value="No">Tetap aktif (Mendapatkan energi)</option>
                     </select>
                 </div>
 
                 <div class="field">
                     <label>Respons Kecemasan Publik</label>
                     <select name="stage_fear">
-                        <option value="Yes">Indikasi gugup</option>
-                        <option value="No">Sikap percaya diri</option>
+                        <option value="Yes">Indikasi cemas / cenderung pemalu</option>
+                        <option value="No">Sikap percaya diri / adaptif</option>
                     </select>
                 </div>
 
@@ -384,35 +260,36 @@
         </div>
     </div>
 
-    <!-- Output Hasil Stunting -->
     {% if prediction_text %}
-    <div class="result-area">
-        <div class="status-label">[ hasil_metrik_fisik ]</div>
-        <div class="prediction">{{ prediction_text }}</div>
+    <div class="result-area" style="border-color: {{ res_color }}">
+        <div class="status-label" style="color: {{ res_color }}">[ Hasil Analisis ]</div>
+        <div class="prediction" style="color: {{ res_color }}">{{ prediction_text }}</div>
         
+        {% if res_keterangan or res_saran %}
         <div class="tips">
-            <p><strong>Keterangan:</strong> {{ res_keterangan }}</p>
-            <p><strong>Saran Tindakan:</strong> {{ res_saran }}</p>
+            {% if res_keterangan %}<p><strong>Keterangan:</strong> {{ res_keterangan }}</p>{% endif %}
+            {% if res_saran %}<p><strong>Saran:</strong> {{ res_saran }}</p>{% endif %}
         </div>
+        {% endif %}
     </div>
     {% endif %}
 
-    <!-- Output Hasil Kepribadian -->
     {% if pers_text %}
-    <div class="result-area">
-        <div class="status-label">[ hasil_tipologi_karakter ]</div>
-        <div class="prediction">{{ pers_text }}</div>
+    <div class="result-area" style="border-color: {{ pers_color }}">
+        <div class="status-label" style="color: {{ pers_color }}">[ Hasil Tipologi Karakter ]</div>
+        <div class="prediction" style="color: {{ pers_color }}">{{ pers_text }}</div>
         
+        {% if pers_keterangan %}
         <div class="tips">
             <p><strong>Evaluasi Psikologi:</strong> {{ pers_keterangan }}</p>
         </div>
+        {% endif %}
     </div>
     {% endif %}
 
     <footer>
         <div class="footer-badge">SISTEM PAKAR TUMBUH KEMBANG V2.0</div>
         <div>Pencatatan digital terkomputerisasi untuk skrining perkembangan dini anak.</div>
-        
         <div class="footer-details">
             <span>REG: BANYUMAS_SEHAT</span>
             <span>METODE: KNN_CLASSIFIER</span>
@@ -434,11 +311,9 @@
             document.getElementById('form-personality').classList.add('active');
         }
     }
-
     {% if pers_text %}
         switchTab('personality');
     {% endif %}
 </script>
-
 </body>
 </html>
