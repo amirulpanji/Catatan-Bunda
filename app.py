@@ -34,7 +34,7 @@ def home():
 
 
 # --- FITUR STUNTING (BAWAAN ORIGINAL) ---
-@app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['GET', 'POST'])
 def predict():
     if request.method == 'POST':
         try:
@@ -78,7 +78,7 @@ def predict():
             return render_template('index.html', prediction_text='Mohon masukkan angka yang valid, Bun.')
         except Exception as e:
             return render_template('index.html', prediction_text=f'Kesalahan Sistem: {str(e)}')
-
+    return render_template('index.html')
 
 # --- FITUR PERSONALITY (BARU) ---
 @app.route('/predict-personality', methods=['POST'])
